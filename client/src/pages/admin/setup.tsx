@@ -52,27 +52,27 @@ export default function AdminSetup() {
   useEffect(() => {
     const checkStatus = async () => {
       try {
-        const res = await fetch(`/api/auth/status`, {
+        const res = await fetch(`http://localhost:5000/api/auth/status`, {
           credentials: "include",
         });
         const data = await res.json();
 
         if (!data.setupNeeded) {
-          toast({
-            title: "Admin Exists",
-            description: "Redirecting you to the home page...",
-          });
+          // toast({
+          //   title: "Admin Exists",
+          //   description: "Redirecting you to the home page...",
+          // });
 
           setTimeout(() => {
             setLocation("/");
-          }, 10);
+          }, 5);
         }
       } catch (err) {
         console.error("Failed to check status");
       } finally {
         setTimeout(() => {
           setStatusLoading(false);
-        }, 11);
+        }, 5);
       }
     };
 
