@@ -52,7 +52,7 @@ export default function AdminSetup() {
   useEffect(() => {
     const checkStatus = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/auth/status", {
+          const res = await fetch(`${import.meta.env.APP_URL}/api/auth/status`, {
           credentials: "include",
         });
         const data = await res.json();
