@@ -52,7 +52,7 @@ export default function AdminSetup() {
   useEffect(() => {
     const checkStatus = async () => {
       try {
-          const res = await fetch(`${import.meta.env.APP_URL}/api/auth/status`, {
+        const res = await fetch(`/api/auth/status`, {
           credentials: "include",
         });
         const data = await res.json();
@@ -64,17 +64,15 @@ export default function AdminSetup() {
           });
 
           setTimeout(() => {
-            setLocation("/")
-          },10);
+            setLocation("/");
+          }, 10);
         }
       } catch (err) {
         console.error("Failed to check status");
       } finally {
-                  setTimeout(() => {
-                    setStatusLoading(false);
-
-          },11);
-        // Stop loader and show setup form
+        setTimeout(() => {
+          setStatusLoading(false);
+        }, 11);
       }
     };
 
@@ -110,7 +108,8 @@ export default function AdminSetup() {
       if (error.message.includes("403")) {
         toast({
           title: "Setup Disabled",
-          description: "An admin account already exists. Please use the login page.",
+          description:
+            "An admin account already exists. Please use the login page.",
           variant: "destructive",
         });
         setLocation("/admin/login");
@@ -154,7 +153,11 @@ export default function AdminSetup() {
 
         <CardContent>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4"  autoComplete="off">
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="space-y-4"
+              autoComplete="off"
+            >
               {/* Username */}
               <FormField
                 control={form.control}
@@ -224,7 +227,11 @@ export default function AdminSetup() {
               />
 
               {/* Submit */}
-              <Button type="submit" className="w-full" disabled={setupMutation.isPending}>
+              <Button
+                type="submit"
+                className="w-full"
+                disabled={setupMutation.isPending}
+              >
                 {setupMutation.isPending ? (
                   <>
                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
