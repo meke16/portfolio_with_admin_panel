@@ -154,7 +154,7 @@ export default function AdminSetup() {
 
         <CardContent>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4"  autoComplete="off">
               {/* Username */}
               <FormField
                 control={form.control}
