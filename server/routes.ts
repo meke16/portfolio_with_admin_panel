@@ -14,7 +14,7 @@ import {
 } from "@shared/schema";
 import { z } from "zod";
 
-const JWT_SECRET = process.env.SESSION_SECRET;
+const JWT_SECRET = process.env.SESSION_SECRET as string;
 
 if (!JWT_SECRET) {
   throw new Error("SESSION_SECRET environment variable must be set");
