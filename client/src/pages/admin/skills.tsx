@@ -78,11 +78,18 @@ export default function AdminSkills() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/skills"] });
-      toast({ title: "Skill Added", description: "The skill has been added successfully." });
+      toast({
+        title: "Skill Added",
+        description: "The skill has been added successfully.",
+      });
       closeDialog();
     },
     onError: () => {
-      toast({ title: "Error", description: "Failed to add skill.", variant: "destructive" });
+      toast({
+        title: "Error",
+        description: "Failed to add skill.",
+        variant: "destructive",
+      });
     },
   });
 
@@ -92,11 +99,18 @@ export default function AdminSkills() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/skills"] });
-      toast({ title: "Skill Updated", description: "The skill has been updated successfully." });
+      toast({
+        title: "Skill Updated",
+        description: "The skill has been updated successfully.",
+      });
       closeDialog();
     },
     onError: () => {
-      toast({ title: "Error", description: "Failed to update skill.", variant: "destructive" });
+      toast({
+        title: "Error",
+        description: "Failed to update skill.",
+        variant: "destructive",
+      });
     },
   });
 
@@ -106,11 +120,18 @@ export default function AdminSkills() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/skills"] });
-      toast({ title: "Skill Deleted", description: "The skill has been removed." });
+      toast({
+        title: "Skill Deleted",
+        description: "The skill has been removed.",
+      });
       setDeleteId(null);
     },
     onError: () => {
-      toast({ title: "Error", description: "Failed to delete skill.", variant: "destructive" });
+      toast({
+        title: "Error",
+        description: "Failed to delete skill.",
+        variant: "destructive",
+      });
     },
   });
 
@@ -161,7 +182,10 @@ export default function AdminSkills() {
       <div className="space-y-8">
         <div className="flex items-center justify-between flex-wrap gap-4">
           <div>
-            <h1 className="text-3xl font-display font-bold" data-testid="text-skills-title">
+            <h1
+              className="text-3xl font-display font-bold"
+              data-testid="text-skills-title"
+            >
               Skills
             </h1>
             <p className="text-muted-foreground mt-1">
@@ -182,7 +206,10 @@ export default function AdminSkills() {
                 </DialogTitle>
               </DialogHeader>
               <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                <form
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  className="space-y-4"
+                >
                   <FormField
                     control={form.control}
                     name="name"
@@ -190,7 +217,11 @@ export default function AdminSkills() {
                       <FormItem>
                         <FormLabel>Skill Name</FormLabel>
                         <FormControl>
-                          <Input placeholder="React" {...field} data-testid="input-skill-name" />
+                          <Input
+                            placeholder="React"
+                            {...field}
+                            data-testid="input-skill-name"
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -204,9 +235,15 @@ export default function AdminSkills() {
                       <FormItem>
                         <FormLabel>Category</FormLabel>
                         <FormControl>
-                          <Input placeholder="Frontend, Backend, DevOps, etc." {...field} data-testid="input-skill-category" />
+                          <Input
+                            placeholder="Frontend, Backend, DevOps, etc."
+                            {...field}
+                            data-testid="input-skill-category"
+                          />
                         </FormControl>
-                        <FormDescription>Group similar skills together</FormDescription>
+                        <FormDescription>
+                          Group similar skills together
+                        </FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}
@@ -219,7 +256,11 @@ export default function AdminSkills() {
                       <FormItem>
                         <FormLabel>Logo URL</FormLabel>
                         <FormControl>
-                          <Input placeholder="https://cdn.example.com/react-logo.svg" {...field} data-testid="input-skill-logo" />
+                          <Input
+                            placeholder="https://cdn.example.com/react-logo.svg"
+                            {...field}
+                            data-testid="input-skill-logo"
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -249,10 +290,18 @@ export default function AdminSkills() {
                   />
 
                   <DialogFooter>
-                    <Button type="button" variant="outline" onClick={closeDialog}>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={closeDialog}
+                    >
                       Cancel
                     </Button>
-                    <Button type="submit" disabled={isPending} data-testid="button-save-skill">
+                    <Button
+                      type="submit"
+                      disabled={isPending}
+                      data-testid="button-save-skill"
+                    >
                       {isPending ? (
                         <>
                           <Loader2 className="w-4 h-4 mr-2 animate-spin" />
@@ -288,7 +337,10 @@ export default function AdminSkills() {
                   <h2 className="text-lg font-semibold mb-4">{category}</h2>
                   <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {categorySkills.map((skill) => (
-                      <Card key={skill.id} data-testid={`card-admin-skill-${skill.id}`}>
+                      <Card
+                        key={skill.id}
+                        data-testid={`card-admin-skill-${skill.id}`}
+                      >
                         <CardContent className="p-4">
                           <div className="flex items-start gap-3">
                             {skill.logo ? (
@@ -307,7 +359,9 @@ export default function AdminSkills() {
 
                             <div className="flex-1 min-w-0 space-y-2">
                               <div className="flex items-center justify-between gap-2">
-                                <h3 className="font-medium truncate">{skill.name}</h3>
+                                <h3 className="font-medium truncate">
+                                  {skill.name}
+                                </h3>
                                 <div className="flex items-center gap-1">
                                   <Button
                                     variant="ghost"
@@ -335,7 +389,10 @@ export default function AdminSkills() {
                                   <span>Proficiency</span>
                                   <span>{skill.proficiency}%</span>
                                 </div>
-                                <Progress value={skill.proficiency || 0} className="h-1.5" />
+                                <Progress
+                                  value={skill.proficiency || 0}
+                                  className="h-1.5"
+                                />
                               </div>
                             </div>
                           </div>
@@ -359,12 +416,16 @@ export default function AdminSkills() {
           </Card>
         )}
 
-        <AlertDialog open={deleteId !== null} onOpenChange={() => setDeleteId(null)}>
+        <AlertDialog
+          open={deleteId !== null}
+          onOpenChange={() => setDeleteId(null)}
+        >
           <AlertDialogContent>
             <AlertDialogHeader>
               <AlertDialogTitle>Delete Skill</AlertDialogTitle>
               <AlertDialogDescription>
-                Are you sure you want to delete this skill? This action cannot be undone.
+                Are you sure you want to delete this skill? This action cannot
+                be undone.
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>

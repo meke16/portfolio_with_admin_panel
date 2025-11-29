@@ -24,7 +24,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen" data-testid="page-home">
-      <PublicNav />
+      <PublicNav adminInfo={adminInfo} isLoading={adminInfoLoading} />
       <HeroSection adminInfo={adminInfo} isLoading={adminInfoLoading} />
       <AboutSection adminInfo={adminInfo} isLoading={adminInfoLoading} />
       <SkillsSection skills={skills} isLoading={skillsLoading} />

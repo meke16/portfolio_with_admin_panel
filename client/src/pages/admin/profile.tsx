@@ -74,8 +74,14 @@ export default function AdminProfile() {
       });
       setPhones(adminInfo.phones?.length ? adminInfo.phones : [""]);
       setLocations(adminInfo.locations?.length ? adminInfo.locations : [""]);
-      setSocials(adminInfo.socials?.length ? adminInfo.socials : [{ platform: "", url: "" }]);
-      setGalleryImages(adminInfo.galleryImages?.length ? adminInfo.galleryImages : [""]);
+   
+      // Convert object back into array for inputs
+    const socialsArray = adminInfo.socials
+      ? Object.entries(adminInfo.socials).map(([platform, url]) => ({ platform, url }))
+      : [{ platform: "", url: "" }];
+    setSocials(socialsArray);
+
+        setGalleryImages(adminInfo.galleryImages?.length ? adminInfo.galleryImages : [""]);
     }
   }, [adminInfo, form]);
 
@@ -85,7 +91,11 @@ export default function AdminProfile() {
         ...data,
         phones: phones.filter(Boolean),
         locations: locations.filter(Boolean),
-        socials: socials.filter((s) => s.platform && s.url),
+        socials: Object.fromEntries(
+          socials
+            .filter((s) => s.platform && s.url)
+            .map((s) => [s.platform.toLowerCase(), s.url])
+        ),
         galleryImages: galleryImages.filter(Boolean),
       };
       return apiRequest(adminInfo ? "PUT" : "POST", "/api/admin/info", payload);
