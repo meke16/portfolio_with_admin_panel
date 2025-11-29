@@ -174,7 +174,7 @@ export default function AdminSkills() {
   const isPending = createMutation.isPending || updateMutation.isPending;
 
   const categories = skills
-    ? [...new Set(skills.map((s) => s.category || "Other"))]
+    ? Array.from(new Set(skills.map((s) => s.category || "Other")))
     : [];
 
   return (
@@ -199,7 +199,7 @@ export default function AdminSkills() {
                 Add Skill
               </Button>
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent aria-describedby="">
               <DialogHeader>
                 <DialogTitle>
                   {editingSkill ? "Edit Skill" : "Add New Skill"}

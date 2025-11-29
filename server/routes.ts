@@ -213,18 +213,19 @@ export async function registerRoutes(
 
   // ============ PROJECTS CRUD ============
 
-  app.post("/api/admin/projects", authMiddleware, async (req, res) => {
-    try {
-      const data = insertProjectSchema.parse(req.body);
-      const project = await storage.createProject(data);
-      res.status(201).json(project);
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        return res.status(400).json({ error: error.errors });
-      }
-      res.status(500).json({ error: "Failed to create project" });
+app.post("/api/admin/projects", authMiddleware, async (req, res) => {
+  try {
+    const data = insertProjectSchema.parse(req.body); // expects { image: string[], ... }
+    const project = await storage.createProject(data);
+    res.status(201).json(project);
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return res.status(400).json({ error: error.errors });
     }
-  });
+    res.status(500).json({ error: "Failed to create project" });
+  }
+});
+
 
   app.put("/api/admin/projects/:id", authMiddleware, async (req, res) => {
     try {

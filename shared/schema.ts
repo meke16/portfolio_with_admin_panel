@@ -33,7 +33,7 @@ export const projects = pgTable("projects", {
   id: serial("id").primaryKey(),
   title: varchar("title", { length: 150 }).notNull(),
   description: text("description"),
-  image: text("image"),
+  image: jsonb("image").$type<string[]>(), 
   url: varchar("url", { length: 255 }),
   githubUrl: varchar("github_url", { length: 255 }),
   technologies: text("technologies"),
