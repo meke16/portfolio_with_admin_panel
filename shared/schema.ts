@@ -38,6 +38,7 @@ export const projects = pgTable("projects", {
   githubUrl: varchar("github_url", { length: 255 }),
   technologies: text("technologies"),
   featured: boolean("featured").default(false),
+  year: varchar("year"), 
   createdAt: timestamp("created_at").defaultNow(),
 });
 

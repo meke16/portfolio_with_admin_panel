@@ -60,6 +60,7 @@ const projectFormSchema = z.object({
   githubUrl: z.string().optional(),
   technologies: z.string().optional(),
   featured: z.boolean().default(false),
+  year: z.string(),
 });
 
 type ProjectFormData = z.infer<typeof projectFormSchema>;
@@ -87,6 +88,7 @@ export default function AdminProjects() {
       githubUrl: "",
       technologies: "",
       featured: false,
+      year: "",
     },
   });
 
@@ -169,6 +171,8 @@ export default function AdminProjects() {
       githubUrl: project.githubUrl || "",
       technologies: project.technologies || "",
       featured: project.featured || false,
+      year: project.year || ""
+
     });
 
     setNewImageUrl("");
@@ -222,7 +226,7 @@ export default function AdminProjects() {
               </Button>
             </DialogTrigger>
             <DialogContent
-              className="max-w-2xl max-h-[90vh] overflow-y-auto"
+              className="max-w-4xl max-h-[90vh] overflow-y-auto"
               aria-describedby=""
             >
               <DialogHeader>
@@ -381,6 +385,26 @@ export default function AdminProjects() {
                         </FormControl>
                         <FormDescription>
                           Comma-separated list of technologies
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  {/* builted year */}
+                   <FormField
+                    control={form.control}
+                    name="year"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Devloped At</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="2014 EC"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormDescription>
+                          Devloped year of project
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
