@@ -218,17 +218,6 @@ export default function AdminDashboard() {
                       key={project.id}
                       className="flex items-center gap-3 p-3 rounded-lg border"
                     >
-                      {project.image ? (
-                        <img
-                          src={project.image}
-                          alt={project.title}
-                          className="w-10 h-10 rounded object-cover"
-                        />
-                      ) : (
-                        <div className="w-10 h-10 rounded bg-muted flex items-center justify-center">
-                          <FolderKanban className="w-5 h-5 text-muted-foreground" />
-                        </div>
-                      )}
                       <div className="flex-1 min-w-0">
                         <p className="font-medium truncate">{project.title}</p>
                         <p className="text-sm text-muted-foreground truncate">
