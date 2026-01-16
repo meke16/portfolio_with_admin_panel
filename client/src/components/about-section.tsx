@@ -45,11 +45,11 @@ export function AboutSection({ adminInfo, isLoading }: AboutSectionProps) {
             <div className="flex justify-center md:justify-end">
               <div className="relative">
                 <div className="absolute inset-0 bg-primary/20 rounded-2xl blur-xl transform rotate-6" />
-                <Avatar className="relative w-64 h-64 md:w-80 md:h-80 rounded-2xl border-4 border-background shadow-xl">
+                <Avatar className="relative w-64 h-70 md:w-80 md:h-80 rounded-2xl border-4 border-background shadow-xl">
                   <AvatarImage
                     src={adminInfo?.profileImage || ""}
                     alt={adminInfo?.name || "Profile"}
-                    className="object-cover"
+                    className="h-full w-full object-cover"
                   />
                   <AvatarFallback className="text-6xl font-display rounded-2xl">
                     {adminInfo?.name?.charAt(0) || "P"}

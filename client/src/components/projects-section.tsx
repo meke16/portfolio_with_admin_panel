@@ -31,7 +31,7 @@ export function ProjectsSection({ projects, isLoading, showFilter = true }: Proj
 
   const featuredProjects = filteredProjects?.filter((p) => p.featured);
   const regularProjects = filteredProjects?.filter((p) => !p.featured);
-
+console.log(featuredProjects);
   return (
     <section
       id="projects"
