@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ExternalLink, Github, Star } from "lucide-react";
 import { useState } from "react";
 import type { Project } from "@shared/schema";
+import { ProjectDetailModal } from "@/components/project-detail-modal";
 
 interface ProjectsSectionProps {
   projects?: Project[];
@@ -13,6 +14,8 @@ interface ProjectsSectionProps {
 
 export function ProjectsSection({ projects, isLoading, showFilter = true }: ProjectsSectionProps) {
   const [activeFilter, setActiveFilter] = useState<string>("all");
+  const [detailOpen, setDetailOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const allTechnologies = projects
     ? Array.from(
@@ -86,34 +89,37 @@ console.log(featuredProjects);
             ))}
           </div>
         ) : filteredProjects && filteredProjects.length > 0 ? (
-          <div className="space-y-12">
-            {featuredProjects && featuredProjects.length > 0 && (
-              <div>
-                <h3 className="text-xl font-semibold mb-6 flex items-center gap-2">
-                  <Star className="w-5 h-5 text-yellow-500 fill-yellow-500" />
-                  Featured Projects
-                </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  {featuredProjects.map((project) => (
-                    <ProjectCard key={project.id} project={project} featured />
-                  ))}
+          <>
+            <ProjectDetailModal open={detailOpen} onOpenChange={(open) => { setDetailOpen(open); if (!open) setSelectedProject(null); }} project={selectedProject} />
+            <div className="space-y-12">
+              {featuredProjects && featuredProjects.length > 0 && (
+                <div>
+                  <h3 className="text-xl font-semibold mb-6 flex items-center gap-2">
+                    <Star className="w-5 h-5 text-yellow-500 fill-yellow-500" />
+                    Featured Projects
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {featuredProjects.map((project) => (
+                      <ProjectCard key={project.id} project={project} featured onImageClick={() => { setSelectedProject(project); setDetailOpen(true); }} />
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
 
-            {regularProjects && regularProjects.length > 0 && (
-              <div>
-                {featuredProjects && featuredProjects.length > 0 && (
-                  <h3 className="text-xl font-semibold mb-6">All Projects</h3>
-                )}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {regularProjects.map((project) => (
-                    <ProjectCard key={project.id} project={project} />
-                  ))}
+              {regularProjects && regularProjects.length > 0 && (
+                <div>
+                  {featuredProjects && featuredProjects.length > 0 && (
+                    <h3 className="text-xl font-semibold mb-6">All Projects</h3>
+                  )}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {regularProjects.map((project) => (
+                      <ProjectCard key={project.id} project={project} onImageClick={() => { setSelectedProject(project); setDetailOpen(true); }} />
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
+          </>
         ) : (
           <div className="text-center py-12">
             <p className="text-muted-foreground">No projects found.</p>
@@ -124,7 +130,7 @@ console.log(featuredProjects);
   );
 }
 
-function ProjectCard({ project, featured }: { project: Project; featured?: boolean }) {
+function ProjectCard({ project, featured, onImageClick }: { project: Project; featured?: boolean; onImageClick?: () => void }) {
   const technologies = project.technologies?.split(",").map((t) => t.trim()) || [];
 
   // Support image as array or string, show first image for preview
@@ -142,12 +148,12 @@ function ProjectCard({ project, featured }: { project: Project; featured?: boole
       }`}
       data-testid={`card-project-${project.id}`}
     >
-      <div className="aspect-video relative overflow-hidden bg-muted">
+      <div className="aspect-video relative overflow-hidden bg-muted cursor-pointer group" onClick={onImageClick} tabIndex={0} role="button" aria-label="View project details">
         {previewImage ? (
           <img
             src={previewImage}
             alt={project.title}
-            className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
