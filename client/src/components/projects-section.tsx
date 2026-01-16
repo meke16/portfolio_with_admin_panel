@@ -15,11 +15,13 @@ export function ProjectsSection({ projects, isLoading, showFilter = true }: Proj
   const [activeFilter, setActiveFilter] = useState<string>("all");
 
   const allTechnologies = projects
-    ? [...new Set(
-        projects
-          .flatMap((p) => p.technologies?.split(",").map((t) => t.trim()) || [])
-          .filter(Boolean)
-      )]
+    ? Array.from(
+        new Set(
+          projects
+            .flatMap((p) => p.technologies?.split(",").map((t) => t.trim()) || [])
+            .filter(Boolean)
+        )
+      )
     : [];
 
   const filteredProjects =
@@ -125,6 +127,14 @@ console.log(featuredProjects);
 function ProjectCard({ project, featured }: { project: Project; featured?: boolean }) {
   const technologies = project.technologies?.split(",").map((t) => t.trim()) || [];
 
+  // Support image as array or string, show first image for preview
+  let previewImage = "";
+  if (Array.isArray(project.image) && project.image.length > 0) {
+    previewImage = project.image[0];
+  } else if (typeof project.image === "string" && project.image) {
+    previewImage = project.image;
+  }
+
   return (
     <Card
       className={`overflow-hidden hover-elevate active-elevate-2 transition-all duration-300 ${
@@ -133,9 +143,9 @@ function ProjectCard({ project, featured }: { project: Project; featured?: boole
       data-testid={`card-project-${project.id}`}
     >
       <div className="aspect-video relative overflow-hidden bg-muted">
-        {project.image ? (
+        {previewImage ? (
           <img
-            src={project.image}
+            src={previewImage}
             alt={project.title}
             className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
           />

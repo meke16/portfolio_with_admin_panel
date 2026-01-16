@@ -43,15 +43,15 @@ export function AboutSection({ adminInfo, isLoading }: AboutSectionProps) {
         ) : (
           <div className="grid md:grid-cols-2 gap-12 items-start">
             <div className="flex justify-center md:justify-end">
-              <div className="relative">
+              <div className="relative w-64 h-80 md:w-96 md:h-[28rem] max-w-full max-h-[32rem] aspect-[4/5]">
                 <div className="absolute inset-0 bg-primary/20 rounded-2xl blur-xl transform rotate-6" />
-                <Avatar className="relative w-64 h-70 md:w-80 md:h-80 rounded-2xl border-4 border-background shadow-xl">
+                <Avatar className="relative w-full h-full rounded-2xl border-4 border-background shadow-xl overflow-hidden">
                   <AvatarImage
                     src={adminInfo?.profileImage || ""}
                     alt={adminInfo?.name || "Profile"}
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-cover object-center"
                   />
-                  <AvatarFallback className="text-6xl font-display rounded-2xl">
+                  <AvatarFallback className="text-6xl font-display rounded-2xl w-full h-full flex items-center justify-center">
                     {adminInfo?.name?.charAt(0) || "P"}
                   </AvatarFallback>
                 </Avatar>
